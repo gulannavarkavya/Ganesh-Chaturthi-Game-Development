@@ -410,7 +410,7 @@
                 score = score + 10;
                 clickedButton.style.backgroundColor = "#2e7d32";
                 
-                document.getElementById("success-sound").play().catch(e => console.log("Audio blocked"));
+                window.speechSynthesis.speak(new SpeechSynthesisUtterance("Correct Answer!"));
                
                 mushika.src = "images/mushika-running.png";
                 mushikaZone.classList.add("run-animation");
@@ -430,16 +430,9 @@
                 var correctButton = document.getElementById("opt-" + correctAnswers[questionIndex]);
                 if(correctButton) correctButton.style.backgroundColor = "#2e7d32";
                 
-                document.getElementById("current-sound").play().catch(e => console.log("Audio blocked"));
                 
-                setTimeout(function() {
-                    var oopsAudio = document.getElementById("oops-sound");
-                    var laughAudio = document.getElementById("laugh-sound");
-                    oopsAudio.currentTime = 0;
-                    laughAudio.currentTime = 0;
-                    oopsAudio.play().catch(function(e){ console.log(e); });
-                    laughAudio.play().catch(function(e){ console.log(e); });
-                }, 400);
+                
+                window.speechSynthesis.cancel(); window.speechSynthesis.speak(new SpeechSynthesisUtterance("Wrong Answer"));
                 
                 mushika.src = "images/mushika-sad.png";
                 mushikaZone.classList.add("sad-animation");
