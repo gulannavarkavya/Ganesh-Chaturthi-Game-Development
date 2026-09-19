@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modak Mitra Game</title>
+    <style>
+        body {
+           margin: 0;
+           padding: 10px;
+           font-family: 'Segoe UI', Arial, sans-serif;
+           text-align: center;
+           background-color: #fff8e1;
+           box-sizing: border-box;
+        }
+
+        .main-layout-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+       
+        @keyframes musakRun {
+            0% { transform: translateX(0) ;}
+            50% { transform: translateX(-280px) ; } 
+           
+            100% { transform: translateX(0px) ; } 
+        }
+        
+        
+        @keyframes musakSad {
+            0%, 100% { transform: translateY(0px); }
+            25% { transform: translateY(-10px) ; }
+            75% { transform: translateY(5px);}
+        }
+
+        .run-animation {
+            animation: musakRun 1.5s ease-in-out;
+        }
+
+        .sad-animation {
+            animation: musakSad 0.5s ease-in-out 3;
+        }
+        
+
+        .game-main-box {
+            width: 100%;
+            max-width: 580px;
+            padding: 5px;
+            box-sizing: border-box;
+            flex-shrink: 0;
+        }
+
+        .option-btn {
+            width: 100%;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            text-align: left;
+            background-color: #ff9933;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            background-color: #e65100;
+        }
+
+        .rules-container {
+            width: 100%;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 40px; 
+            z-index: 100;
+            box-sizing: border-box;
+            flex-shrink: 0;
+        }
+
+        .rules-sub-box {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #ff9933;
+            border-radius: 15px;
+            text-align: left;
+            font-size: 12.5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @media (max-width: 900px) {
+            .main-layout-wrapper { 
+                flex-direction: column; 
+                align-items: center; 
+                gap: 5px; 
+            }
+            .game-main-box, .rules-container { 
+                width: calc(100% - 30px) !important;
+                max-width: 100% !important; 
+                margin-top: 5px !important;
+                height: auto !important; 
+                min-width: auto !important;
+                padding: 8px !important;
+            }
+            h1 { 
+                font-size: 1.2rem !important; 
+                margin-top: 2px !important;
+                margin-bottom: 2px !important; 
+            }
+            hr { 
+                margin-top: 2px !important; 
+                margin-bottom: 0px !important; 
+            }
+            hr + p, .header-section hr + p { 
+                margin-top: 0px !important; 
+                margin-bottom: 2px !important; 
+                font-size: 12px !important;
+            }
+            .option-btn { 
+                padding: 5px 10px !important; 
+                margin-bottom: 3px !important; 
+                font-size: 12px !important;
+            }
+            
+           
+        
+           #mushika-zone img, [alt="Mushika Mitra"] {
+               position: relative !important;
+               z-index: 10;
+
+               max-width: 55px !important;
+               width: 100% !important;
+               height: auto !important;
+               display: block !important;
+               margin: 5px auto 0 auto !important;
+               left: 0 !important;
+               overflow: hidden !important;
+              
+               transform: translateX(0) !important;
+           }
+            @keyframes musakRunMobile {
+               0% { transform: translateX(0); }
+               50% { transform: translateX(-150px); }
+               100% { transform: translateX(0); }
+           }
+
+           .run-animation {
+               animation: musakRunMobile 1.5s ease-in-out;
+           }
+              
+               
+           
+        }
+      
+
+        [alt="Ganesha Eating Modak"], img[src*="modak"] {
+            position: relative;
+            z-index: 2;
+        }
+           #welcome-screen {
+                position: fixed;
+                top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0, 0, 0, 0.95);
+                display: flex; justify-content: center; align-items: center;
+                z-index: 9999;
+        }
+          .welcome-box {
+                background: #fff3e0; padding: 35px; border-radius: 15px;
+                text-align: center; max-width: 550px; font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+                border: 4px solid #ff9800; box-shadow: 0px 0px 25px rgba(0,0,0,0.6);
+        }
+         .welcome-box h2 { color: #d84315; margin-top: 0; font-size: 26px; text-align: center; }
+         .welcome-box h3 { color: #e65100; font-size: 18px; margin-bottom: 15px; text-align: center; }
+         .welcome-box ul { text-align: left; margin: 20px 0; line-height: 1.7; color: #333; font-size: 15px; }
+         .welcome-box button {
+                background: #4caf50; color: white; border: none;
+                padding: 14px 35px; font-size: 18px; font-weight: bold;
+                border-radius: 25px; cursor: pointer; transition: 0.3s;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        .welcome-box button:hover { background: #45a049; transform: scale(1.05); }
+        
+        
+    </style>
+    
+</head>
+<!-- Game Welcome and Rules Screen -->
+ <body>
+<div id="welcome-screen">
+    <div class="welcome-box">
+        <h2>Modak Mitra: Mushika's Mission</h2>
+        <h3>📜 Game Rules & Instructions</h3>
+        <ul>
+            <li>✅ <b>Correct Answer:</b> Mushika moves closer to Lord Ganesha and offers a plate of delicious Modaks.</li>
+            <li>❌ <b>Wrong Answer:</b>Mushika feels sad and jumps up in disappointment, while Lord Ganesha gently smiles to encourage you.</li>
+            <li>❤️ <b>The Twist:</b> You have a total of <b>3 Lives</b>. One wrong answer will decrease 1 life. Don't lose them all!</li>
+        </ul>
+        <button onclick="startGame()">Start Game 🎮</button>
+    </div>
+</div>
+
+
+   
+    
+  
+    
+    <audio id="success-sound" src="C:/Windows/Media/chimes.wav" preload="auto"></audio>
+    <audio id="current-sound" src="C:/Windows/Media/chord.wav" preload="auto"></audio>
+    <audio id="oops-sound" src="C:/Windows/Media/Windows Logoff Sound.wav" preload="auto"></audio>
+    <audio id="laugh-sound" src="C:/Windows/Media/tada.wav" preload="auto"></audio>
+    <!-- Header Section -->
+    <h1 style="color: #e65100; font-size: 1.8rem; margin: 5px 0; font-weight: 800; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">🏆 Modak Mitra: Mushika's Mission 🏆</h1>
+    <p style="font-size: 0.9rem; font-weight: bold; color: #666; margin: 0;">Presented by Team Cyber Ganesha</p>
+    <hr style="width: 90%; border: 1px solid #ff9933; margin: 8px auto;">
+
+    <div class="main-layout-wrapper">
+
+        <div class="game-main-box">
+            
+            <!-- Live Status Bar -->
+            <div style="margin-bottom: 8px;">
+                <span id="ganesha-reaction" style="font-size: 13px; color: #d84315; font-weight: bold; font-style: italic; background-color: #ffe0b2; padding: 4px 12px; border-radius: 12px; display: inline-block;">
+                    Bappa and Mushika are waiting for your devotion!
+                </span>
+            </div>
+
+            <!-- PLAYGROUND BOX -->
+            <div style="background-color: white; padding: 8px; border: 3px solid #ff9933; border-radius: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.06); overflow: hidden; width: 100%; box-sizing: border-box;">
+                <div style="display: flex; justify-content: space-between; align-items: center; min-height: 190px; border-radius: 15px; padding: 5px 20px; position: relative;">
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 60px; background-image: url('images/festive-bg.png'); background-size: 140px 60px; background-repeat: repeat-x; background-position: top; z-index: 1;"></div>
+                    
+                    <!-- Lord Ganesha -->
+                    <div style="text-align: center; width: 25%; z-index: 2; margin-top: 30px;">
+                        <img id="ganesha-img" src="images/ganesha-resting.png" style="width: 100px; height: 100px; object-fit: contain; max-width: 100%;" onerror="this.src='https://placehold.co'">
+                        <br><span style="font-size: 11px; font-weight: bold; color: #e65100; display: inline-block; margin-top: 4px; background: rgba(255,255,255,0.8); padding: 1px 6px; border-radius: 8px;">Lord Ganesha</span>
+                    </div>
+
+                   
+                    <div style="width: 20%; text-align: center; z-index: 3; margin-top: 30px;">
+                        <img id="modak-pop" src="images/modak_plate.png" style="width: 75px; height: 75px; object-fit: contain; display: none;">
+                   </div>
+
+                    <!-- Mushika Mitra -->
+                    <div id="mushika-zone" style="text-align: center; width: 25%; z-index: 2; transition: all 0.3s; margin-top: 30px;">
+                        <img id="mushika-img" src="images/mushika-ready.png" style="width: 85px; height: 85px; object-fit: contain; max-width: 100%;" onerror="this.src='https://placehold.co'">
+                        <br><span style="font-size: 11px; font-weight: bold; color: #555; display: inline-block; margin-top: 4px; background: rgba(255,255,255,0.8); padding: 1px 6px; border-radius: 8px;">Mushika Mitra</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUIZ ZONE -->
+            <div style="margin-top: 10px; padding: 0 5px;">
+                <h2 id="question-text" style="font-size: 1.15rem; color: #222; min-height: 35px; line-height: 1.2; margin: 0 0 10px 0; text-align: left;">Loading Question...</h2>
+                <div id="options-box" style="display: flex; flex-direction: column; gap: 8px; width: 100%;"></div>
+            </div>
+
+            <!-- SCOREBOARD -->
+            <div style="display: flex; justify-content: space-around; align-items: center; background-color: #ffd54f; padding: 10px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.06); margin-top: 12px; box-sizing: border-box;">
+                <h3 style="color: #bf360c; margin: 0; font-size: 1.15rem; font-weight: 700;">Your Score: <span id="score" style="background: white; padding: 2px 10px; border-radius: 6px;">0</span></h3>
+                <button onclick="location.reload()" style="padding: 6px 15px; font-size: 12px; font-weight: bold; background-color: #c62828; color: white; border: none; border-radius: 15px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">🔄 Restart</button>
+                <h3 style="color: #b71c1c; margin: 0; font-size: 1.15rem; font-weight: 700;">Lives Left: <span id="lives" style="background: white; padding: 2px 10px; border-radius: 6px;">3</span></h3>
+            </div>
+
+        </div>
+
+        <div class="rules-container">
+            <div class="rules-sub-box">
+                <b style="color: #e65100; font-size: 13px; display: block; margin-bottom: 4px; text-align: center;">📖 Game Rules & Reactions:</b>
+                <p style="margin: 2px 0; color: #333;"><b>⭐ Correct:</b> Mushika happily runs to the plate & Ganesha eats the Modak! (+10 Pts)</p>
+                <p style="margin: 4px 0 2px 0; color: #333;"><b>❌ Wrong:</b>Mushika feels sad and jumps up in disappointment, while Lord Ganesha gently smiles to encourage you. </p>
+            </div>
+
+            <div class="rules-sub-box">
+                <b style="color: #e65100; font-size: 13px; display: block; margin-bottom: 4px; text-align: center;">📋 How to Play & Game Over:</b>
+                <p style="margin: 2px 0; color: #333;"><b>🎮 Gameplay:</b> Choose the right option to help Mushika bring Modak to Lord Ganesha.</p>
+                <p style="margin: 4px 0 0 0; color: #b71c1c; font-weight: bold;"><b>🐹 Game Over Twist:</b> If you lose all 3 lives, Mushika steals & eats the Modak himself!</p>
+            </div>
+        </div>
+
+    </div>
+    
+
+
+<script>
+        var score = 0;
+        var lives = 3;
+        var questionIndex = 0;
+
+        var questions = [
+            "What is Lord Ganesha's favorite sweet offering?",
+            "Who is the divine vehicle (Vahana) of Lord Ganesha?",
+            "Which material is traditionally best for making eco-friendly Ganesha idols?",
+            "What unique feature does Lord Ganesha have that symbolizes listening more?",
+            "Which of these tech terms matches Ganesha's giant memory capacity?",
+            "What does the single tusk (Ekadanta) of Ganesha symbolize in logic?"
+        ];
+
+        var choices = [
+            ["Laddu", "Modak", "Peda", "Barfi"],
+            ["Mushika (Mouse)", "Garuda (Eagle)", "Nandi (Bull)", "Mayura (Peacock)"],
+            ["Plaster of Paris", "Plastic", "Clay (Shadu Mati)", "Metal"],
+            ["Big Belly", "Long Trunk", "Large Ears", "Small Eyes"],
+            ["Cloud Storage", "1 KB RAM", "Floppy Disk", "No Storage"],
+            ["Binary Logic (0 or 1)", "Singular Focus (One Goal)", "Looping Statement", "Syntax Error"]
+        ];
+
+       
+        var correctAnswers = [1, 0, 2, 2, 0, 1];
+
+        
+        function triggerGameOver() {
+            document.body.innerHTML = `
+                <div style="margin-top: 60px; padding: 20px; text-align: center; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <h1 style="color: #c62828; font-size: 48px; margin-bottom: 10px;">❌ GAME OVER</h1>
+                    <img src="images/mushika-eating-modak.png" alt="Mushika eating modak" style="width: 160px; height: auto; margin: 15px 0; display: block;">
+                    <p style="font-size: 20px; color: #333; margin: 10px 0 5px 0; font-weight: bold;">Mushika ate the Modak himself! Try again with full devotion!</p>
+                    <h3 style="color: #612121; font-size: 24px; margin: 5px 0 20px 0;">Your Final Score: ${score}</h3>
+                    <h4 style="color: #e65100; font-size: 22px; margin: 10px 0 20px 0; font-weight: bold;">Best Played! You played with full devotion! 🙏✨</h4>
+                    <button onclick="location.reload()" style="padding: 12px 25px; font-size: 18px; border-radius: 20px; background-color: #c62828; color: white; border: none; cursor: pointer; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Play Again</button>
+                </div>
+            `;
+        }
+
+        function showNextQuestion() {
+            if (lives <= 0) {
+                triggerGameOver();
+                return;
+            }
+            
+            if (questionIndex >= questions.length) { 
+                let prizeStatus = "";
+                if (score === 60) {
+                    prizeStatus = "Congratulations! You won the first prize! 🥇🏆";
+                } else if (score === 50) {
+                    prizeStatus = "Congratulations! You won the second prize! 🥈🌟";
+                } else if (score === 40) {
+                    prizeStatus = "Congratulations! You won the third prize! 🥉🎉";
+                } else {
+                    prizeStatus = "Congratulations! You completed the quiz! 🎉";
+                }
+                document.body.innerHTML = `
+                    <div style="margin-top: 60px; padding: 20px; text-align: center; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <h1 style="color: #2e7d32; font-size: 48px; margin-bottom: 10px;">🎉 MISSION SUCCESS!</h1>
+                        <img src="images/ganesha-eating.png" alt="Ganesha Eating Modak" style="width: 170px; height: auto; margin: 15px 0; display: block;">
+                        <p style="font-size: 22px; color: #1b5e20; margin: 10px 0 5px 0; font-weight: bold;"> ${prizeStatus}</p>
+                        <h3 style="color: #2e7d32; font-size: 24px; margin: 5px 0 10px 0; font-weight: bold;">🏆 You are a true Modak Mitra! 🏆</h3>
+                        <h4 style="color: #333; font-size: 20px; margin-bottom: 25px;">Total Score: ${score}</h4>
+                        <button onclick="location.reload()" style="padding: 12px 25px; font-size: 18px; border-radius: 20px; background-color: #2e7d32; color: white; border: none; cursor: pointer; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Play Again</button>
+                    </div>
+                `;
+                
+                return;
+            }
+
+            var mushikaZone = document.getElementById("mushika-zone");
+            if(mushikaZone) mushikaZone.classList.remove("run-animation", "sad-animation");
+
+            document.getElementById("ganesha-img").src = "images/ganesha-resting.png";
+            document.getElementById("mushika-img").src = "images/mushika-ready.png";
+            document.getElementById("modak-pop").style.display = "none";
+
+            document.getElementById("question-text").innerText = "Question " + (questionIndex + 1) + ": " + questions[questionIndex];
+
+            var optionsBox = document.getElementById("options-box");
+            optionsBox.innerHTML = ""; 
+
+            for (var i = 0; i < 4; i++) {
+                optionsBox.innerHTML += "<button class='option-btn' id='opt-" + i + "' onclick='checkPlayerAnswer(" + i + ")'><span style='background:white; color:#e65100; border-radius:50%; width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center; margin-right:10px; font-size:12px; font-weight:800;'> " + (i+1) + " </span>" + choices[questionIndex][i] + "</button>";
+            }
+        }
+
+       
+        function startGame() {
+            document.getElementById('welcome-screen').style.display = 'none';
+            document.querySelector("#welcome-screen ul li:nth-child(2)").innerHTML = "<b>❌ Wrong Answer:</b> Mushika feels sad and jumps up in disappointment, while Lord Ganesha gently smiles to encourage you.";
+            document.getElementById("success-sound").load();
+            document.getElementById("current-sound").load();
+            document.getElementById("oops-sound").load();
+            document.getElementById("laugh-sound").load();
+
+            showNextQuestion();
+        }
+
+        function checkPlayerAnswer(userSelection) {
+            var reactionText = document.getElementById("ganesha-reaction");
+            var ganesha = document.getElementById("ganesha-img");
+            var mushika = document.getElementById("mushika-img");
+            var mushikaZone = document.getElementById("mushika-zone");
+            var modak = document.getElementById("modak-pop");
+
+            var clickedButton = document.getElementById("opt-" + userSelection);
+            var currentButtons = document.getElementById("options-box").getElementsByTagName("button");
+            
+            for(var b=0; b<currentButtons.length; b++) { currentButtons[b].disabled = true; }
+
+            if (userSelection == correctAnswers[questionIndex]) {
+                score = score + 10;
+                clickedButton.style.backgroundColor = "#2e7d32";
+                
+                document.getElementById("success-sound").play().catch(e => console.log("Audio blocked"));
+               
+                mushika.src = "images/mushika-running.png";
+                mushikaZone.classList.add("run-animation");
+                
+                ganesha.src = "images/ganesha-eating.png";
+                modak.style.display = "inline-block";
+                reactionText.innerHTML = "🌟 Correct! Mushika brought a Modak and Bappa accepted it!";
+            
+            } else {
+                lives = lives - 1;
+                clickedButton.style.backgroundColor = "#c62828";
+                
+                    
+                
+                
+                
+                var correctButton = document.getElementById("opt-" + correctAnswers[questionIndex]);
+                if(correctButton) correctButton.style.backgroundColor = "#2e7d32";
+                
+                document.getElementById("current-sound").play().catch(e => console.log("Audio blocked"));
+                
+                setTimeout(function() {
+                    var oopsAudio = document.getElementById("oops-sound");
+                    var laughAudio = document.getElementById("laugh-sound");
+                    oopsAudio.currentTime = 0;
+                    laughAudio.currentTime = 0;
+                    oopsAudio.play().catch(function(e){ console.log(e); });
+                    laughAudio.play().catch(function(e){ console.log(e); });
+                }, 400);
+                
+                mushika.src = "images/mushika-sad.png";
+                mushikaZone.classList.add("sad-animation");
+                
+                ganesha.src = "images/ganesha-gentle-smile.png"; 
+                reactionText.innerHTML = "😉 Oops! Mushika feels sad, But merciful Bappa gently smiles: 'Try again, my friend!'";
+                
+                if (lives <= 0) {
+                    mushika.src = "images/mushika-eating-modak.png";
+                    setTimeout(function(){
+                        triggerGameOver();
+                    }, 2000);
+                    return;
+                }
+            }
+
+            document.getElementById("score").innerText = score;
+            document.getElementById("lives").innerText = lives;
+
+            questionIndex = questionIndex + 1;
+            setTimeout(showNextQuestion, 3000);
+        }
+</script>
+ </body> 
+</html>
